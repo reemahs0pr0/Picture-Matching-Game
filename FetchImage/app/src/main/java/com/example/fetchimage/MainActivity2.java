@@ -1,0 +1,597 @@
+package com.example.fetchimage;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.util.Base64;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
+
+    private Boolean running = true, checking = false;
+    private int seconds = 0, move = 0, score = 0, checkWithIndex;
+    private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9,
+            image10, image11, image12;
+    private TextView matches, moves;
+    private List<ImageView> images;
+    private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
+    private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
+    private String time;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity2_main);
+
+        matches = (TextView) findViewById(R.id.matches);
+        moves = (TextView) findViewById(R.id.moves);
+        image1 = (ImageView) findViewById(R.id.image1);
+        image2 = (ImageView) findViewById(R.id.image2);
+        image3 = (ImageView) findViewById(R.id.image3);
+        image4 = (ImageView) findViewById(R.id.image4);
+        image5 = (ImageView) findViewById(R.id.image5);
+        image6 = (ImageView) findViewById(R.id.image6);
+        image7 = (ImageView) findViewById(R.id.image7);
+        image8 = (ImageView) findViewById(R.id.image8);
+        image9 = (ImageView) findViewById(R.id.image9);
+        image10 = (ImageView) findViewById(R.id.image10);
+        image11 = (ImageView) findViewById(R.id.image11);
+        image12 = (ImageView) findViewById(R.id.image12);
+        images = new ArrayList<ImageView>() {{
+            add(image1);
+            add(image2);
+            add(image3);
+            add(image4);
+            add(image5);
+            add(image6);
+            add(image7);
+            add(image8);
+            add(image9);
+            add(image10);
+            add(image11);
+            add(image12);
+        }};
+
+        Intent intent = getIntent();
+        SharedPreferences pref = getSharedPreferences("clickedImages", Context.MODE_PRIVATE);
+        clickedImagesBitmapStrings.add(pref.getString("image1", null));
+        clickedImagesBitmapStrings.add(pref.getString("image2", null));
+        clickedImagesBitmapStrings.add(pref.getString("image3", null));
+        clickedImagesBitmapStrings.add(pref.getString("image4", null));
+        clickedImagesBitmapStrings.add(pref.getString("image5", null));
+        clickedImagesBitmapStrings.add(pref.getString("image6", null));
+
+        for (int i = 0; i < 6; i++) {
+            clickedImagesBitmapStrings.add(clickedImagesBitmapStrings.get(i));
+        }
+        Collections.shuffle(clickedImagesBitmapStrings);
+
+        for (String bitmapString : clickedImagesBitmapStrings) {
+            clickedImagesBitmaps.add(StringToBitMap(bitmapString));
+        }
+
+        for (ImageView image : images) {
+            int id = getResources().getIdentifier("x",
+                    "drawable", getPackageName());
+            image.setImageResource(id);
+            image.setOnClickListener(this);
+        }
+    }
+
+    public void onClick(View view) {
+        if (move == 0) {
+            runTimer();
+        }
+        move++;
+        String noOfMoves = "Runs: " + move;
+        moves.setText(noOfMoves);
+        if(checking == false) {
+            switch (view.getId()) {
+                case R.id.image1:
+                    checkWithIndex = 0;
+                    image1.setImageBitmap(clickedImagesBitmaps.get(0));
+                    break;
+                case R.id.image2:
+                    checkWithIndex = 1;
+                    image2.setImageBitmap(clickedImagesBitmaps.get(1));
+                    break;
+                case R.id.image3:
+                    checkWithIndex = 2;
+                    image3.setImageBitmap(clickedImagesBitmaps.get(2));
+                    break;
+                case R.id.image4:
+                    checkWithIndex = 3;
+                    image4.setImageBitmap(clickedImagesBitmaps.get(3));
+                    break;
+                case R.id.image5:
+                    checkWithIndex = 4;
+                    image5.setImageBitmap(clickedImagesBitmaps.get(4));
+                    break;
+                case R.id.image6:
+                    checkWithIndex = 5;
+                    image6.setImageBitmap(clickedImagesBitmaps.get(5));
+                    break;
+                case R.id.image7:
+                    checkWithIndex = 6;
+                    image7.setImageBitmap(clickedImagesBitmaps.get(6));
+                    break;
+                case R.id.image8:
+                    checkWithIndex = 7;
+                    image8.setImageBitmap(clickedImagesBitmaps.get(7));
+                    break;
+                case R.id.image9:
+                    checkWithIndex = 8;
+                    image9.setImageBitmap(clickedImagesBitmaps.get(8));
+                    break;
+                case R.id.image10:
+                    checkWithIndex = 9;
+                    image10.setImageBitmap(clickedImagesBitmaps.get(9));
+                    break;
+                case R.id.image11:
+                    checkWithIndex = 10;
+                    image11.setImageBitmap(clickedImagesBitmaps.get(10));
+                    break;
+                case R.id.image12:
+                    checkWithIndex = 11;
+                    image12.setImageBitmap(clickedImagesBitmaps.get(11));
+                    break;
+                default:
+                    break;
+            }
+            checking = true;
+        } else {
+            switch (view.getId()) {
+                case R.id.image1:
+                    if (checkWithIndex == 0) {
+                        image1.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image1.setImageBitmap(clickedImagesBitmaps.get(0));
+                        if (clickedImagesBitmapStrings.get(0).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image1.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image1.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image2:
+                    if (checkWithIndex == 1) {
+                        image2.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image2.setImageBitmap(clickedImagesBitmaps.get(1));
+                        if (clickedImagesBitmapStrings.get(1).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image2.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image2.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image3:
+                    if (checkWithIndex == 2) {
+                        image3.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image3.setImageBitmap(clickedImagesBitmaps.get(2));
+                        if (clickedImagesBitmapStrings.get(2).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image3.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image3.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image4:
+                    if (checkWithIndex == 3) {
+                        image4.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image4.setImageBitmap(clickedImagesBitmaps.get(3));
+                        if (clickedImagesBitmapStrings.get(3).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image4.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image4.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image5:
+                    if (checkWithIndex == 4) {
+                        image5.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image5.setImageBitmap(clickedImagesBitmaps.get(4));
+                        if (clickedImagesBitmapStrings.get(4).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image5.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image5.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image6:
+                    if (checkWithIndex == 5) {
+                        image6.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image6.setImageBitmap(clickedImagesBitmaps.get(5));
+                        if (clickedImagesBitmapStrings.get(5).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image6.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image6.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image7:
+                    if (checkWithIndex == 6) {
+                        image7.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image7.setImageBitmap(clickedImagesBitmaps.get(6));
+                        if (clickedImagesBitmapStrings.get(6).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image7.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image7.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image8:
+                    if (checkWithIndex == 7) {
+                        image8.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image8.setImageBitmap(clickedImagesBitmaps.get(7));
+                        if (clickedImagesBitmapStrings.get(7).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image8.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image8.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image9:
+                    if (checkWithIndex == 8) {
+                        image9.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image9.setImageBitmap(clickedImagesBitmaps.get(8));
+                        if (clickedImagesBitmapStrings.get(8).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image9.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image9.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image10:
+                    if (checkWithIndex == 9) {
+                        image10.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image10.setImageBitmap(clickedImagesBitmaps.get(9));
+                        if (clickedImagesBitmapStrings.get(9).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image10.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image10.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image11:
+                    if (checkWithIndex == 10) {
+                        image11.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image11.setImageBitmap(clickedImagesBitmaps.get(10));
+                        if (clickedImagesBitmapStrings.get(10).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image11.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image11.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                case R.id.image12:
+                    if (checkWithIndex == 11) {
+                        image12.setImageResource(getResources().getIdentifier("x",
+                                "drawable", getPackageName()));
+                    }
+                    else{
+                        image12.setImageBitmap(clickedImagesBitmaps.get(11));
+                        if (clickedImagesBitmapStrings.get(11).equals(clickedImagesBitmapStrings
+                                .get(checkWithIndex))) {
+                            image12.setClickable(false);
+                            images.get(checkWithIndex).setClickable(false);
+                            score++;
+                            String newMatches = score + "/6 matches";
+                            matches.setText(newMatches);
+                        }
+                        else {
+                            new CountDownTimer(1000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {}
+
+                                @Override
+                                public void onFinish() {
+                                    image12.setImageResource(getResources().getIdentifier("x",
+                                            "drawable", getPackageName()));
+                                    images.get(checkWithIndex).setImageResource(getResources()
+                                            .getIdentifier("x","drawable",
+                                                    getPackageName()));
+                                }
+                            }.start();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            checking = false;
+        }
+        if (score == 6) {
+            running = false;
+            String msg = "You took " + time + " and " + move + " moves";
+            Toast.makeText(getApplicationContext(), msg,
+                    Toast.LENGTH_SHORT).show();
+
+            SharedPreferences sharedPref = getSharedPreferences("clickedImages",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.clear();
+            editor.commit();
+
+            Intent intent = new Intent(this,
+                    com.example.fetchimage.MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void runTimer() {
+        final TextView timeView = (TextView)findViewById(R.id.timer);
+        final Handler handler  = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int hours = seconds / 3600;
+                int minutes = (seconds % 3600) / 60;
+                int secs = seconds % 60;
+
+                time = String.format(Locale.getDefault(),"%d:%02d:%02d", hours,
+                        minutes, secs);
+                timeView.setText(time);
+                if (running) {
+                    seconds++;
+                }
+                handler.postDelayed(this, 1000);
+            }
+        });
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+}

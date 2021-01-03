@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12sp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="48dp"
+        android:hint="Search..."
+        android:text=""
+        android:inputType="text"
+        android:background="@drawable/styles"
+        android:padding="8dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getBtn"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="45dp"
+        android:padding="0dp"
+        android:text="Fetch" />
+
+    <GridLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:layout_marginTop="110dp"
+        android:columnCount="4"
+        android:rowCount="5">
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image4"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image5"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image6"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image7"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image8"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image9"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image10"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image11"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image12"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="2"
+            android:layout_column="3"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image13"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image14"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image15"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="3"
+            android:layout_column="2"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image16"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="3"
+            android:layout_column="3"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image17"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image18"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image19"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:onClick="imageClicked"/>
+
+        <ImageView
+            android:id="@+id/image20"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="left|top"
+            android:layout_row="4"
+            android:layout_column="3"
+            android:onClick="imageClicked"/>
+    </GridLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="610dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:max="20"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="640dp"
+        android:text=""/>
+
+</RelativeLayout>
