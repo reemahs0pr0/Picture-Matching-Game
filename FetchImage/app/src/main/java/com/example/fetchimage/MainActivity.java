@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         int id = getResources().getIdentifier("x",
                                 "drawable", getPackageName());
                         image.setImageResource(id);
+                        image.setAlpha((float)1);
                     }
                     getWebsite(search.getText().toString());
                     String progress = "Downloading " + (imageNo+1) + " of 20 images...";
@@ -196,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setProgress(imageNo+1);
                 startDownloading();
             }
-            else if (imageNo ==size) {
+            else if (imageNo == size) {
                 message.setText("");
                 progressBar.setProgress(imageNo+1);
                 progressBar.setVisibility(View.INVISIBLE);
@@ -206,75 +207,172 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void imageClicked(View view) {
-        if(view.getTag() != "clicked") {
-            imagesClicked++;
-            view.setAlpha((float) 0.3);
-            view.setTag("clicked");
+        if(view.getTag() != "clicked" && imagesClicked < 6) {
             switch (view.getId()) {
                 case R.id.image1:
-                    clickedImagesBitmaps.add(bitmaps.get(0));
+                    if (size >= 1) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(0));
+                    }
                     break;
                 case R.id.image2:
-                    clickedImagesBitmaps.add(bitmaps.get(1));
+                    if (size >= 2) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(1));
+                    }
                     break;
                 case R.id.image3:
-                    clickedImagesBitmaps.add(bitmaps.get(2));
+                    if (size >= 3) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(2));
+                    }
                     break;
                 case R.id.image4:
-                    clickedImagesBitmaps.add(bitmaps.get(3));
+                    if (size >= 4) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(3));
+                    }
                     break;
                 case R.id.image5:
-                    clickedImagesBitmaps.add(bitmaps.get(4));
+                    if (size >= 5) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(4));
+                    }
                     break;
                 case R.id.image6:
-                    clickedImagesBitmaps.add(bitmaps.get(5));
+                    if (size >= 6) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(5));
+                    }
                     break;
                 case R.id.image7:
-                    clickedImagesBitmaps.add(bitmaps.get(6));
+                    if (size >= 7) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(6));
+                    }
                     break;
                 case R.id.image8:
-                    clickedImagesBitmaps.add(bitmaps.get(7));
+                    if (size >= 8) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(7));
+                    }
                     break;
                 case R.id.image9:
-                    clickedImagesBitmaps.add(bitmaps.get(8));
+                    if (size >= 9) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(8));
+                    }
                     break;
                 case R.id.image10:
-                    clickedImagesBitmaps.add(bitmaps.get(9));
+                    if (size >= 10) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(9));
+                    }
                     break;
                 case R.id.image11:
-                    clickedImagesBitmaps.add(bitmaps.get(10));
+                    if (size >= 11) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(10));
+                    }
                     break;
                 case R.id.image12:
-                    clickedImagesBitmaps.add(bitmaps.get(11));
+                    if (size >= 12) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(11));
+                    }
                     break;
                 case R.id.image13:
-                    clickedImagesBitmaps.add(bitmaps.get(12));
+                    if (size >= 13) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(12));
+                    }
                     break;
                 case R.id.image14:
-                    clickedImagesBitmaps.add(bitmaps.get(13));
+                    if (size >= 14) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(13));
+                    }
                     break;
                 case R.id.image15:
-                    clickedImagesBitmaps.add(bitmaps.get(14));
+                    if (size >= 15) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(14));
+                    }
                     break;
                 case R.id.image16:
-                    clickedImagesBitmaps.add(bitmaps.get(15));
+                    if (size >= 16) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(15));
+                    }
                     break;
                 case R.id.image17:
-                    clickedImagesBitmaps.add(bitmaps.get(16));
+                    if (size >= 17) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(16));
+                    }
                     break;
                 case R.id.image18:
-                    clickedImagesBitmaps.add(bitmaps.get(17));
+                    if (size >= 18) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(17));
+                    }
                     break;
                 case R.id.image19:
-                    clickedImagesBitmaps.add(bitmaps.get(18));
+                    if (size >= 19) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(18));
+                    }
                     break;
                 case R.id.image20:
-                    clickedImagesBitmaps.add(bitmaps.get(19));
+                    if (size == 20) {
+                        imagesClicked++;
+                        view.setAlpha((float) 0.3);
+                        view.setTag("clicked");
+                        clickedImagesBitmaps.add(bitmaps.get(19));
+                    }
                     break;
                 default:
                     break;
             }
-        } else {
+        } else if (view.getTag() == "clicked") {
             imagesClicked--;
             view.setAlpha(1);
             view.setTag("");
