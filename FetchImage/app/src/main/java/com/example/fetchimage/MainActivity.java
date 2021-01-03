@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     public void imageClicked(View view) {
         if(view.getTag() != "clicked") {
             imagesClicked++;
-            view.setAlpha((float) 0.5);
+            view.setAlpha((float) 0.3);
             view.setTag("clicked");
             switch (view.getId()) {
                 case R.id.image1:
