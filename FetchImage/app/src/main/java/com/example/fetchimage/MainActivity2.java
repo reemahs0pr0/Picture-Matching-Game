@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -32,12 +33,16 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
     private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
     private String time;
+    private MediaPlayer correctAns, wrongAns, gameWon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2_main);
 
+        correctAns = MediaPlayer.create(this, R.raw.correct_ans);
+        wrongAns = MediaPlayer.create(this, R.raw.wrong_ans);
+        gameWon = MediaPlayer.create(this, R.raw.game_won);
         matches = (TextView) findViewById(R.id.matches);
         moves = (TextView) findViewById(R.id.moves);
         image1 = (ImageView) findViewById(R.id.image1);
@@ -97,6 +102,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         if (move == 0) {
             runTimer();
         }
+        correctAns.stop();
+        wrongAns.stop();
         move++;
         String noOfMoves = "Runs: " + move;
         moves.setText(noOfMoves);
@@ -165,6 +172,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image1.setImageBitmap(clickedImagesBitmaps.get(0));
                         if (clickedImagesBitmapStrings.get(0).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image1.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -172,6 +180,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -197,6 +206,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image2.setImageBitmap(clickedImagesBitmaps.get(1));
                         if (clickedImagesBitmapStrings.get(1).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image2.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -204,6 +214,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -229,6 +240,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image3.setImageBitmap(clickedImagesBitmaps.get(2));
                         if (clickedImagesBitmapStrings.get(2).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image3.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -236,6 +248,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -261,6 +274,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image4.setImageBitmap(clickedImagesBitmaps.get(3));
                         if (clickedImagesBitmapStrings.get(3).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image4.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -268,6 +282,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -293,6 +308,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image5.setImageBitmap(clickedImagesBitmaps.get(4));
                         if (clickedImagesBitmapStrings.get(4).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image5.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -300,6 +316,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -325,6 +342,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image6.setImageBitmap(clickedImagesBitmaps.get(5));
                         if (clickedImagesBitmapStrings.get(5).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image6.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -332,6 +350,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -357,6 +376,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image7.setImageBitmap(clickedImagesBitmaps.get(6));
                         if (clickedImagesBitmapStrings.get(6).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image7.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -364,6 +384,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -389,6 +410,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image8.setImageBitmap(clickedImagesBitmaps.get(7));
                         if (clickedImagesBitmapStrings.get(7).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image8.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -396,6 +418,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -421,6 +444,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image9.setImageBitmap(clickedImagesBitmaps.get(8));
                         if (clickedImagesBitmapStrings.get(8).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image9.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -428,6 +452,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -453,6 +478,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image10.setImageBitmap(clickedImagesBitmaps.get(9));
                         if (clickedImagesBitmapStrings.get(9).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image10.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -460,6 +486,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -485,6 +512,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image11.setImageBitmap(clickedImagesBitmaps.get(10));
                         if (clickedImagesBitmapStrings.get(10).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image11.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -492,6 +520,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -517,6 +546,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         image12.setImageBitmap(clickedImagesBitmaps.get(11));
                         if (clickedImagesBitmapStrings.get(11).equals(clickedImagesBitmapStrings
                                 .get(checkWithIndex))) {
+                            correctAns.start();
                             image12.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
                             score++;
@@ -524,6 +554,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             matches.setText(newMatches);
                         }
                         else {
+                            wrongAns.start();
                             new CountDownTimer(1000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {}
@@ -546,6 +577,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             checking = false;
         }
         if (score == 6) {
+            gameWon.start();
             running = false;
             String msg = "Your time was " + time + " and you took " + move + " moves";
             Toast.makeText(getApplicationContext(), msg,
