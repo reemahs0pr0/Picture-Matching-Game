@@ -161,9 +161,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    for (int j = 0; j < 8; j++) {
-                        urls.remove(0);
-                    }
+                    urls.subList(0, 8).clear();
                     size = urls.size();
                     startDownloading();
                 } catch (IOException e) {
@@ -487,13 +485,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        else {
+            onePlayer.setVisibility(View.INVISIBLE);
+            onePlayer.setClickable(false);
+            twoPlayer.setVisibility(View.INVISIBLE);
+            twoPlayer.setClickable(false);
+        }
     }
 
     public String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos = new  ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
         byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
+        return Base64.encodeToString(b, Base64.DEFAULT);
     }
 }

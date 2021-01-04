@@ -33,7 +33,6 @@
         android:layout_marginTop="612dp"
         android:layout_marginLeft="20dp"
         android:text="Player 2:"
-        android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@color/black"/>
 

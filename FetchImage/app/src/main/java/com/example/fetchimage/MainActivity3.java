@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -24,27 +25,29 @@ import java.util.Locale;
 
 public class MainActivity3 extends AppCompatActivity implements View.OnClickListener {
 
-    private Boolean running = true, checking = false;
-    private int seconds = 0, move = 0, score = 0, checkWithIndex;
+    private Boolean running = true, checking = false, startGame = true, isPlayerOne = true;
+    private int seconds = 0, playerOneScore = 0, playerTwoScore = 0, totalScore, checkWithIndex;
     private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9,
             image10, image11, image12;
-    private TextView matches, moves;
+    private TextView playerOneMatches, playerTwoMatches, playerOne, playerTwo;
     private List<ImageView> images;
     private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
     private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
-    private String time;
+    private String time, newMatch;
     private MediaPlayer correctAns, wrongAns, gameWon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity2_main);
+        setContentView(R.layout.activity3_main);
 
         correctAns = MediaPlayer.create(this, R.raw.correct_ans);
         wrongAns = MediaPlayer.create(this, R.raw.wrong_ans);
         gameWon = MediaPlayer.create(this, R.raw.game_won);
-        matches = (TextView) findViewById(R.id.matches);
-        moves = (TextView) findViewById(R.id.moves);
+        playerOneMatches = (TextView) findViewById(R.id.playerOneMatches);
+        playerTwoMatches = (TextView) findViewById(R.id.playerTwoMatches);
+        playerOne = (TextView) findViewById(R.id.playerOne);
+        playerTwo = (TextView) findViewById(R.id.playerTwo);
         image1 = (ImageView) findViewById(R.id.image1);
         image2 = (ImageView) findViewById(R.id.image2);
         image3 = (ImageView) findViewById(R.id.image3);
@@ -72,7 +75,6 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
             add(image12);
         }};
 
-        Intent intent = getIntent();
         SharedPreferences pref = getSharedPreferences("clickedImages", Context.MODE_PRIVATE);
         clickedImagesBitmapStrings.add(pref.getString("image1", null));
         clickedImagesBitmapStrings.add(pref.getString("image2", null));
@@ -99,15 +101,11 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
     }
 
     public void onClick(View view) {
-        if (move == 0) {
+        if (startGame) {
             runTimer();
+            startGame = false;
         }
-        correctAns.stop();
-        wrongAns.stop();
-        move++;
-        String noOfMoves = "Runs: " + move;
-        moves.setText(noOfMoves);
-        if(checking == false) {
+        if(!checking) {
             switch (view.getId()) {
                 case R.id.image1:
                     checkWithIndex = 0;
@@ -175,9 +173,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image1.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -192,6 +198,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -209,9 +226,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image2.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -226,6 +251,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -243,9 +279,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image3.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -260,6 +304,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -277,9 +332,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image4.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -294,6 +357,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -311,9 +385,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image5.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -328,6 +410,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -345,9 +438,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image6.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -362,6 +463,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -379,9 +491,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image7.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -395,7 +515,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                             "drawable", getPackageName()));
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
-                                                    getPackageName()));
+                                                    getPackageName()));if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -413,9 +543,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image8.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -430,6 +568,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -447,9 +596,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image9.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -464,6 +621,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -481,9 +649,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image10.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -498,6 +674,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -515,9 +702,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image11.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -532,6 +727,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -549,9 +755,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                             correctAns.start();
                             image12.setClickable(false);
                             images.get(checkWithIndex).setClickable(false);
-                            score++;
-                            String newMatches = score + "/6 matches";
-                            matches.setText(newMatches);
+                            if (isPlayerOne) {
+                                playerOneScore++;
+                                newMatch = playerOneScore + "/6 matches";
+                                playerOneMatches.setText(newMatch);
+
+                            }
+                            else {
+                                playerTwoScore++;
+                                newMatch = playerTwoScore + "/6 matches";
+                                playerTwoMatches.setText(newMatch);
+                            }
                         }
                         else {
                             wrongAns.start();
@@ -566,6 +780,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    if (isPlayerOne) {
+                                        playerOne.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = false;
+                                        playerTwo.setTypeface(Typeface.DEFAULT_BOLD);
+
+                                    }
+                                    else {
+                                        playerTwo.setTypeface(Typeface.DEFAULT);
+                                        isPlayerOne = true;
+                                        playerOne.setTypeface(Typeface.DEFAULT_BOLD);
+                                    }
                                 }
                             }.start();
                         }
@@ -576,12 +801,21 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
             }
             checking = false;
         }
-        if (score == 6) {
+        totalScore = playerOneScore + playerTwoScore;
+        if (totalScore == 6) {
             gameWon.start();
             running = false;
-            String msg = "Your time was " + time + " and you took " + move + " moves";
-            Toast.makeText(getApplicationContext(), msg,
-                    Toast.LENGTH_SHORT).show();
+            String msg;
+            if (playerOneScore > playerTwoScore) {
+                msg = "Player 1 won with time: " + time;
+            }
+            else if (playerOneScore < playerTwoScore) {
+                msg = "Player 2 won with time: " + time;
+            }
+            else {
+                msg = "It's a tie!";
+            }
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
             SharedPreferences sharedPref = getSharedPreferences("clickedImages",
                     Context.MODE_PRIVATE);

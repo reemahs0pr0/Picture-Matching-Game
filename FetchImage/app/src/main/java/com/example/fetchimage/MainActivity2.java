@@ -72,7 +72,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             add(image12);
         }};
 
-        Intent intent = getIntent();
         SharedPreferences pref = getSharedPreferences("clickedImages", Context.MODE_PRIVATE);
         clickedImagesBitmapStrings.add(pref.getString("image1", null));
         clickedImagesBitmapStrings.add(pref.getString("image2", null));
@@ -102,12 +101,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         if (move == 0) {
             runTimer();
         }
-        correctAns.stop();
-        wrongAns.stop();
         move++;
         String noOfMoves = "Runs: " + move;
         moves.setText(noOfMoves);
-        if(checking == false) {
+        if(!checking) {
             switch (view.getId()) {
                 case R.id.image1:
                     checkWithIndex = 0;
@@ -580,8 +577,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             gameWon.start();
             running = false;
             String msg = "Your time was " + time + " and you took " + move + " moves";
-            Toast.makeText(getApplicationContext(), msg,
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
             SharedPreferences sharedPref = getSharedPreferences("clickedImages",
                     Context.MODE_PRIVATE);
@@ -619,8 +615,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     public Bitmap StringToBitMap(String encodedString){
         try {
             byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
+            return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         } catch(Exception e) {
             e.getMessage();
             return null;
