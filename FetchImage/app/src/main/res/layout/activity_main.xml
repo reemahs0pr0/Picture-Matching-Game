@@ -254,4 +254,24 @@
         android:layout_marginTop="640dp"
         android:text=""/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/onePlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="96dp"
+        android:layout_marginTop="610dp"
+        android:text="1 player"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/twoPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="192dp"
+        android:layout_marginTop="610dp"
+        android:text="2 player"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
 </RelativeLayout>

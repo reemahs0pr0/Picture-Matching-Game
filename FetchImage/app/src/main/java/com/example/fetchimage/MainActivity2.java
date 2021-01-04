@@ -547,7 +547,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         }
         if (score == 6) {
             running = false;
-            String msg = "You took " + time + " and " + move + " moves";
+            String msg = "Your time was " + time + " and you took " + move + " moves";
             Toast.makeText(getApplicationContext(), msg,
                     Toast.LENGTH_SHORT).show();
 

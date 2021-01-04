@@ -32,7 +32,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button getBtn;
+    private Button getBtn, onePlayer, twoPlayer;
     private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9,
             image10, image11, image12, image13, image14, image15, image16, image17, image18,
             image19, image20;
@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getBtn = (Button) findViewById(R.id.getBtn);
+        onePlayer = (Button) findViewById(R.id.onePlayer);
+        twoPlayer = (Button) findViewById(R.id.twoPlayer);
         message = (TextView) findViewById(R.id.message);
         progressBar =(ProgressBar) findViewById(R.id.progressBar);
         image1 = (ImageView) findViewById(R.id.image1);
@@ -114,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
                         bitmaps.clear();
                         clickedImagesBitmaps.clear();
                         clickedImagesBitmapStrings.clear();
+                        onePlayer.setVisibility(View.INVISIBLE);
+                        onePlayer.setClickable(false);
+                        twoPlayer.setVisibility(View.INVISIBLE);
+                        twoPlayer.setClickable(false);
                     }
                     for (ImageView image : images) {
                         int id = getResources().getIdentifier("x",
@@ -373,6 +379,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         } else if (view.getTag() == "clicked") {
+            onePlayer.setVisibility(View.INVISIBLE);
+            onePlayer.setClickable(false);
+            twoPlayer.setVisibility(View.INVISIBLE);
+            twoPlayer.setClickable(false);
             imagesClicked--;
             view.setAlpha(1);
             view.setTag("");
@@ -442,6 +452,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (imagesClicked == 6) {
+            clickedImagesBitmapStrings.clear();
             for (Bitmap bitmap : clickedImagesBitmaps) {
                 clickedImagesBitmapStrings.add(BitMapToString(bitmap));
             }
@@ -456,9 +467,25 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("image6", clickedImagesBitmapStrings.get(5));
             editor.commit();
 
-            Intent intent = new Intent(this,
-                    com.example.fetchimage.MainActivity2.class);
-            startActivity(intent);
+            onePlayer.setVisibility(View.VISIBLE);
+            onePlayer.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     Intent intent = new Intent(getApplicationContext(),
+                             com.example.fetchimage.MainActivity2.class);
+                     startActivity(intent);
+                 }
+             });
+
+            twoPlayer.setVisibility(View.VISIBLE);
+            twoPlayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(),
+                            com.example.fetchimage.MainActivity3.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
