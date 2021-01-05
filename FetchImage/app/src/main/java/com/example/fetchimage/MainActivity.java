@@ -163,7 +163,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     urls.subList(0, 8).clear();
                     size = urls.size();
-                    startDownloading();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startDownloading();
+                        }
+                    });
                 } catch (IOException e) {
                     builder.append("Error : ").append(e.getMessage()).append("\n");
                 }

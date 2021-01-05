@@ -931,9 +931,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             editor.clear();
             editor.commit();
 
-            Intent intent = new Intent(this,
-                    com.example.fetchimage.MainActivity.class);
-            startActivity(intent);
+            finish();
         }
     }
 
