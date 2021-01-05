@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +26,8 @@ import java.util.Locale;
 
 public class MainActivity3 extends AppCompatActivity implements View.OnClickListener {
 
-    private Boolean running = true, checking = false, startGame = true, isPlayerOne = true;
+    private Boolean running = true, checking = false, startGame = true, isPlayerOne = true,
+            waiting = false;
     private int seconds = 0, playerOneScore = 0, playerTwoScore = 0, totalScore, checkWithIndex;
     private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9,
             image10, image11, image12;
@@ -104,6 +106,9 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
         if (startGame) {
             runTimer();
             startGame = false;
+        }
+        if (waiting) {
+            return;
         }
         if(!checking) {
             switch (view.getId()) {
@@ -184,12 +189,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -209,6 +233,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -237,12 +268,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -262,6 +312,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -290,12 +347,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -315,6 +391,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -343,12 +426,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -368,6 +470,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -396,12 +505,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -421,6 +549,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -449,12 +584,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -474,6 +628,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -502,12 +663,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -526,6 +706,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -554,12 +741,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -579,6 +785,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -607,12 +820,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -632,6 +864,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -660,12 +899,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -685,6 +943,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -713,12 +978,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -738,6 +1022,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -766,12 +1057,31 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 newMatch = playerTwoScore + "/6 matches";
                                 playerTwoMatches.setText(newMatch);
                             }
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -791,6 +1101,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                         isPlayerOne = true;
                                         playerOne.setTypeface(Typeface.DEFAULT_BOLD);
                                     }
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -807,10 +1124,10 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
             running = false;
             String msg;
             if (playerOneScore > playerTwoScore) {
-                msg = "Player 1 won with time: " + time;
+                msg = "Player 1 won with " + playerOneScore + "/6 matches";
             }
             else if (playerOneScore < playerTwoScore) {
-                msg = "Player 2 won with time: " + time;
+                msg = "Player 2 won with " + playerTwoScore + "/6 matches";
             }
             else {
                 msg = "It's a tie!";

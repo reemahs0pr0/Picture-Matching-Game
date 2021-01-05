@@ -205,13 +205,12 @@ public class MainActivity extends AppCompatActivity {
                 message.setText("");
                 progressBar.setProgress(imageNo+1);
                 progressBar.setVisibility(View.INVISIBLE);
-                imageNo = 0;
             }
         }
     }
 
     public void imageClicked(View view) {
-        if(view.getTag() != "clicked" && imagesClicked < 6) {
+        if(view.getTag() != "clicked" && imagesClicked < 6 && imageNo == size) {
             switch (view.getId()) {
                 case R.id.image1:
                     if (size >= 1) {

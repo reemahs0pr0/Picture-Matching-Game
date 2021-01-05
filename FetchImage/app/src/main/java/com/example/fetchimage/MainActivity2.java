@@ -17,6 +17,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,27 +31,30 @@ import java.util.Locale;
 
 public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
 
-    private Boolean running = true, checking = false;
-    private int seconds = 0, move = 0, score = 0, checkWithIndex;
+    private Boolean running = true, checking = false, waiting = false;
+    private int seconds = 0, move = 0, score = 0, checkWithIndex, prevSeconds;
     private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9,
             image10, image11, image12;
-    private TextView matches, moves;
+    private TextView matches, moves, highScore;
     private List<ImageView> images;
     private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
     private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
-    private String time;
+    private String time, filePath = "HighScore", fileName = "HighScore.txt", highScoreArr[];
     private MediaPlayer correctAns, wrongAns, gameWon;
+    private File highScoreFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2_main);
 
+        highScoreFile = new File(getFilesDir(), filePath + "/" + fileName);
         correctAns = MediaPlayer.create(this, R.raw.correct_ans);
         wrongAns = MediaPlayer.create(this, R.raw.wrong_ans);
         gameWon = MediaPlayer.create(this, R.raw.game_won);
         matches = (TextView) findViewById(R.id.matches);
         moves = (TextView) findViewById(R.id.moves);
+        highScore = (TextView) findViewById(R.id.highScore);
         image1 = (ImageView) findViewById(R.id.image1);
         image2 = (ImageView) findViewById(R.id.image2);
         image3 = (ImageView) findViewById(R.id.image3);
@@ -95,11 +105,21 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             image.setImageResource(id);
             image.setOnClickListener(this);
         }
+
+        readFromFile();
+        if (highScoreArr != null) {
+            String HMS[] = highScoreArr[1].split(":", 3);
+            prevSeconds = Integer.parseInt(HMS[2]) + Integer.parseInt(HMS[1]) * 60 +
+                    Integer.parseInt(HMS[0]) * 3600;
+        }
     }
 
     public void onClick(View view) {
         if (move == 0) {
             runTimer();
+        }
+        if (waiting) {
+            return;
         }
         move++;
         String noOfMoves = "Runs: " + move;
@@ -175,12 +195,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -189,6 +228,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -209,12 +255,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -223,6 +288,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -243,12 +315,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -257,6 +348,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -277,12 +375,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -291,6 +408,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -311,12 +435,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -325,6 +468,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -345,12 +495,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -359,6 +528,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -379,12 +555,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -393,6 +588,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -413,12 +615,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -427,6 +648,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -447,12 +675,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -461,6 +708,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -481,12 +735,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -495,6 +768,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -515,12 +795,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -529,6 +828,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -549,12 +855,31 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                             score++;
                             String newMatches = score + "/6 matches";
                             matches.setText(newMatches);
+                            new CountDownTimer(500, 500) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    correctAns.stop();
+                                    try {
+                                        correctAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
+                                }
+                            }.start();
                         }
                         else {
                             wrongAns.start();
-                            new CountDownTimer(1000, 1000) {
+                            new CountDownTimer(500, 500) {
                                 @Override
-                                public void onTick(long millisUntilFinished) {}
+                                public void onTick(long millisUntilFinished) {
+                                    waiting = true;
+                                }
 
                                 @Override
                                 public void onFinish() {
@@ -563,6 +888,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                                     images.get(checkWithIndex).setImageResource(getResources()
                                             .getIdentifier("x","drawable",
                                                     getPackageName()));
+                                    wrongAns.stop();
+                                    try {
+                                        wrongAns.prepare();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    waiting = false;
                                 }
                             }.start();
                         }
@@ -576,8 +908,22 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         if (score == 6) {
             gameWon.start();
             running = false;
-            String msg = "Your time was " + time + " and you took " + move + " moves";
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+            if (highScoreArr == null) {
+                String msg = "        NEW HIGH SCORE\nMoves - " + move + "     Time - " + time;
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                writeToFile();
+            }
+            else if (move < Integer.parseInt(highScoreArr[0]) ||
+                    move == Integer.parseInt(highScoreArr[0]) && seconds < prevSeconds) {
+                String msg = "        NEW HIGH SCORE\nMoves - " + move + "     Time - " + time;
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                writeToFile();
+            }
+            else {
+                String msg = "Score:     Moves - " + move + "     Time - " + time;
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            }
 
             SharedPreferences sharedPref = getSharedPreferences("clickedImages",
                     Context.MODE_PRIVATE);
@@ -619,6 +965,52 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         } catch(Exception e) {
             e.getMessage();
             return null;
+        }
+    }
+
+    protected void writeToFile() {
+        try {
+            File parent = highScoreFile.getParentFile();
+            if (!parent.exists() && !parent.mkdirs()) {
+                throw new IllegalStateException("Couldn't create dir: " + parent);
+            }
+
+            String fileTxt = move + " " + time;
+            FileOutputStream fos = new FileOutputStream(highScoreFile);
+
+            fos.write(fileTxt.getBytes());
+            fos.close();
+
+            String text = "High Score:     Moves - " + move + "     Time - " + time;
+            highScore.setText(text);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void readFromFile() {
+        String data = "";
+        try {
+            if (!highScoreFile.exists()) {
+                return;
+            }
+
+            FileInputStream fis = new FileInputStream(highScoreFile);
+            DataInputStream in = new DataInputStream(fis);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            while ((strLine = br.readLine()) != null) {
+                data = data + strLine;
+            }
+            in.close();
+
+            highScoreArr = data.split(" ", 2);
+
+            String text = "High Score:      Moves - " + highScoreArr[0] + "     Time - " +
+                    highScoreArr[1];
+            highScore.setText(text);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -270,7 +270,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="192dp"
         android:layout_marginTop="610dp"
-        android:text="2 player"
+        android:text="2 players"
         android:clickable="false"
         android:visibility="invisible"/>
 
