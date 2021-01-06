@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
     private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
     private Thread bkgdThread;
+    private boolean gettingWebsite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,14 +110,15 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    if (bkgdThread != null && myTask == null) {
+                    if (gettingWebsite) {
                         bkgdThread.interrupt();
-                        urls.clear();
+                        if (myTask == null)
+                            urls.clear();
                     }
-                    else if (myTask != null) {
+                    if (myTask != null) {
                         myTask.cancel(true);
-                        imageNo = 0;
                         urls.clear();
+                        imageNo = 0;
                         bitmaps.clear();
                         clickedImagesBitmaps.clear();
                         clickedImagesBitmapStrings.clear();
@@ -150,9 +152,7 @@ public class MainActivity extends AppCompatActivity {
         bkgdThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                if (Thread.interrupted()) {
-                    return;
-                }
+                gettingWebsite = true;
                 StringBuilder builder = new StringBuilder();
                 String url = "https://stocksnap.io/search/" + search;
                 try {
@@ -160,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
                     Elements links = doc.select("img[src]");
                     int i = 0;
                     for (Element link : links) {
+                        if (Thread.interrupted()) {
+                            return;
+                        }
                         builder.append(link.attr("src"));
                         if (builder.toString().endsWith("jpg")) {
                             urls.add(builder.toString());
@@ -170,11 +173,12 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    urls.subList(0, 8).clear();
-                    size = urls.size();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            gettingWebsite = false;
+                            urls.subList(0, 8).clear();
+                            size = urls.size();
                             startDownloading();
                         }
                     });
