@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
     private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
     private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
-
+    private Thread bkgdThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,13 +109,18 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    if (myTask != null) {
+                    if (bkgdThread != null && myTask == null) {
+                        bkgdThread.interrupt();
+                        urls.clear();
+                    }
+                    else if (myTask != null) {
                         myTask.cancel(true);
                         imageNo = 0;
                         urls.clear();
                         bitmaps.clear();
                         clickedImagesBitmaps.clear();
                         clickedImagesBitmapStrings.clear();
+                        imagesClicked = 0;
                         onePlayer.setVisibility(View.INVISIBLE);
                         onePlayer.setClickable(false);
                         twoPlayer.setVisibility(View.INVISIBLE);
@@ -126,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                 "drawable", getPackageName());
                         image.setImageResource(id);
                         image.setAlpha((float)1);
+                        image.setTag(null);
                     }
                     getWebsite(search.getText().toString());
                     String progress = "Downloading " + (imageNo+1) + " of 20 images...";
@@ -141,9 +147,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getWebsite(String search) {
-        new Thread(new Runnable() {
+        bkgdThread = new Thread(new Runnable() {
             @Override
             public void run() {
+                if (Thread.interrupted()) {
+                    return;
+                }
                 StringBuilder builder = new StringBuilder();
                 String url = "https://stocksnap.io/search/" + search;
                 try {
@@ -173,7 +182,8 @@ public class MainActivity extends AppCompatActivity {
                     builder.append("Error : ").append(e.getMessage()).append("\n");
                 }
             }
-        }).start();
+        });
+        bkgdThread.start();
     }
 
     private void startDownloading() {
