@@ -168,8 +168,8 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
             switch (view.getId()) {
                 case R.id.image1:
                     if (checkWithIndex == 0) {
-                        image1.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image1.setImageBitmap(clickedImagesBitmaps.get(0));
@@ -243,12 +243,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image2:
                     if (checkWithIndex == 1) {
-                        image2.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image2.setImageBitmap(clickedImagesBitmaps.get(1));
@@ -322,12 +323,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image3:
                     if (checkWithIndex == 2) {
-                        image3.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image3.setImageBitmap(clickedImagesBitmaps.get(2));
@@ -401,12 +403,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image4:
                     if (checkWithIndex == 3) {
-                        image4.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image4.setImageBitmap(clickedImagesBitmaps.get(3));
@@ -480,12 +483,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image5:
                     if (checkWithIndex == 4) {
-                        image5.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image5.setImageBitmap(clickedImagesBitmaps.get(4));
@@ -559,12 +563,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image6:
                     if (checkWithIndex == 5) {
-                        image6.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image6.setImageBitmap(clickedImagesBitmaps.get(5));
@@ -638,12 +643,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image7:
                     if (checkWithIndex == 6) {
-                        image7.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image7.setImageBitmap(clickedImagesBitmaps.get(6));
@@ -716,12 +722,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image8:
                     if (checkWithIndex == 7) {
-                        image8.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image8.setImageBitmap(clickedImagesBitmaps.get(7));
@@ -795,12 +802,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image9:
                     if (checkWithIndex == 8) {
-                        image9.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image9.setImageBitmap(clickedImagesBitmaps.get(8));
@@ -874,12 +882,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image10:
                     if (checkWithIndex == 9) {
-                        image10.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image10.setImageBitmap(clickedImagesBitmaps.get(9));
@@ -953,12 +962,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image11:
                     if (checkWithIndex == 10) {
-                        image11.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image11.setImageBitmap(clickedImagesBitmaps.get(10));
@@ -1032,12 +1042,13 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 case R.id.image12:
                     if (checkWithIndex == 11) {
-                        image12.setImageResource(getResources().getIdentifier("x",
-                                "drawable", getPackageName()));
+                        Toast.makeText(this, "Choose another image!",
+                                Toast.LENGTH_SHORT).show();
                     }
                     else{
                         image12.setImageBitmap(clickedImagesBitmaps.get(11));
@@ -1111,12 +1122,12 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                                 }
                             }.start();
                         }
+                        checking = false;
                     }
                     break;
                 default:
                     break;
             }
-            checking = false;
         }
         totalScore = playerOneScore + playerTwoScore;
         if (totalScore == 6) {
