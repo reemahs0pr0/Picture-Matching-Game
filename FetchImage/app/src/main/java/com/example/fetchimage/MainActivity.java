@@ -468,25 +468,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (imagesClicked == 6) {
-            clickedImagesBitmapStrings.clear();
-            for (Bitmap bitmap : clickedImagesBitmaps) {
-                clickedImagesBitmapStrings.add(BitMapToString(bitmap));
-            }
-            SharedPreferences sharedPref = getSharedPreferences("clickedImages",
-                    Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("image1", clickedImagesBitmapStrings.get(0));
-            editor.putString("image2", clickedImagesBitmapStrings.get(1));
-            editor.putString("image3", clickedImagesBitmapStrings.get(2));
-            editor.putString("image4", clickedImagesBitmapStrings.get(3));
-            editor.putString("image5", clickedImagesBitmapStrings.get(4));
-            editor.putString("image6", clickedImagesBitmapStrings.get(5));
-            editor.commit();
-
             onePlayer.setVisibility(View.VISIBLE);
             onePlayer.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
+                     startLoading();
                      Intent intent = new Intent(getApplicationContext(),
                              com.example.fetchimage.MainActivity2.class);
                      startActivity(intent);
@@ -497,6 +483,7 @@ public class MainActivity extends AppCompatActivity {
             twoPlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    startLoading();
                     Intent intent = new Intent(getApplicationContext(),
                             com.example.fetchimage.MainActivity3.class);
                     startActivity(intent);
@@ -516,5 +503,23 @@ public class MainActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
         byte [] b=baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    public void startLoading() {
+        clickedImagesBitmapStrings.clear();
+        for (Bitmap bitmap : clickedImagesBitmaps) {
+            clickedImagesBitmapStrings.add(BitMapToString(bitmap));
+        }
+
+        SharedPreferences sharedPref = getSharedPreferences("clickedImages",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("image1", clickedImagesBitmapStrings.get(0));
+        editor.putString("image2", clickedImagesBitmapStrings.get(1));
+        editor.putString("image3", clickedImagesBitmapStrings.get(2));
+        editor.putString("image4", clickedImagesBitmapStrings.get(3));
+        editor.putString("image5", clickedImagesBitmapStrings.get(4));
+        editor.putString("image6", clickedImagesBitmapStrings.get(5));
+        editor.commit();
     }
 }
