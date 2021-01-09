@@ -241,7 +241,7 @@
         android:layout_width="288dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="610dp"
+        android:layout_marginTop="625dp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:max="20"
         android:visibility="invisible"/>
@@ -251,7 +251,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="640dp"
+        android:layout_marginTop="670dp"
         android:text=""/>
 
     <androidx.appcompat.widget.AppCompatButton

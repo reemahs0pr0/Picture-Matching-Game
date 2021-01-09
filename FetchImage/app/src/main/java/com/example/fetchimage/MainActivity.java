@@ -1,5 +1,6 @@
 package com.example.fetchimage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,19 +33,20 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button getBtn, onePlayer, twoPlayer;
+    private Button onePlayer;
+    private Button twoPlayer;
     private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9,
             image10, image11, image12, image13, image14, image15, image16, image17, image18,
             image19, image20;
     private TextView message;
     private List<ImageView> images;
     private int imageNo = 0, size, imagesClicked = 0;
-    private List<String> urls = new ArrayList<String>();
+    private final List<String> urls = new ArrayList<String>();
     private DownloadImages myTask;
     private ProgressBar progressBar;
-    private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
-    private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
-    private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
+    private final List<Bitmap> bitmaps = new ArrayList<Bitmap>();
+    private final List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
+    private final List<String> clickedImagesBitmapStrings = new ArrayList<String>();
     private Thread bkgdThread;
     private boolean gettingWebsite = false;
 
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getBtn = (Button) findViewById(R.id.getBtn);
+        Button getBtn = (Button) findViewById(R.id.getBtn);
         onePlayer = (Button) findViewById(R.id.onePlayer);
         twoPlayer = (Button) findViewById(R.id.twoPlayer);
         message = (TextView) findViewById(R.id.message);
@@ -196,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         myTask.execute(url);
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class DownloadImages extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... urls) {
@@ -228,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void imageClicked(View view) {
         if(view.getTag() != "clicked" && imagesClicked < 6 && imageNo == size) {
             switch (view.getId()) {
@@ -520,6 +524,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("image4", clickedImagesBitmapStrings.get(3));
         editor.putString("image5", clickedImagesBitmapStrings.get(4));
         editor.putString("image6", clickedImagesBitmapStrings.get(5));
-        editor.commit();
+        editor.apply();
     }
 }

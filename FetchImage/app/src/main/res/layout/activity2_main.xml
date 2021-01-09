@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:text="Runs: 0"
+        android:text="Moves: 0"
         android:textColor="@color/black"/>
 
     <TextView

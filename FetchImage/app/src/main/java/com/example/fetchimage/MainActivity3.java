@@ -1,5 +1,6 @@
 package com.example.fetchimage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,14 +29,17 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
 
     private Boolean running = true, checking = false, startGame = true, isPlayerOne = true,
             waiting = false;
-    private int seconds = 0, playerOneScore = 0, playerTwoScore = 0, totalScore, checkWithIndex;
+    private int seconds = 0;
+    private int playerOneScore = 0;
+    private int playerTwoScore = 0;
+    private int checkWithIndex;
     private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9,
             image10, image11, image12;
     private TextView playerOneMatches, playerTwoMatches, playerOne, playerTwo;
     private List<ImageView> images;
-    private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
-    private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
-    private String time, newMatch;
+    private final List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
+    private final List<String> clickedImagesBitmapStrings = new ArrayList<String>();
+    private String time;
     private MediaPlayer correctAns, wrongAns, gameWon;
 
     @Override
@@ -102,6 +106,7 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         if (startGame) {
             runTimer();
@@ -165,6 +170,7 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
             }
             checking = true;
         } else {
+            String newMatch;
             switch (view.getId()) {
                 case R.id.image1:
                     if (checkWithIndex == 0) {
@@ -1129,7 +1135,7 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                     break;
             }
         }
-        totalScore = playerOneScore + playerTwoScore;
+        int totalScore = playerOneScore + playerTwoScore;
         if (totalScore == 6) {
             gameWon.start();
             running = false;
@@ -1179,8 +1185,7 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
     public Bitmap StringToBitMap(String encodedString){
         try {
             byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
+            return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         } catch(Exception e) {
             e.getMessage();
             return null;

@@ -1,5 +1,6 @@
 package com.example.fetchimage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,9 +38,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             image10, image11, image12;
     private TextView matches, moves, highScore;
     private List<ImageView> images;
-    private List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
-    private List<String> clickedImagesBitmapStrings = new ArrayList<String>();
-    private String time, filePath = "HighScore", fileName = "HighScore.txt", highScoreArr[];
+    private final List<Bitmap> clickedImagesBitmaps = new ArrayList<Bitmap>();
+    private final List<String> clickedImagesBitmapStrings = new ArrayList<String>();
+    private String time;
+    private String[] highScoreArr;
     private MediaPlayer correctAns, wrongAns, gameWon;
     private File highScoreFile;
 
@@ -48,6 +50,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2_main);
 
+        String fileName = "HighScore.txt";
+        String filePath = "HighScore";
         highScoreFile = new File(getFilesDir(), filePath + "/" + fileName);
         correctAns = MediaPlayer.create(this, R.raw.correct_ans);
         wrongAns = MediaPlayer.create(this, R.raw.wrong_ans);
@@ -108,12 +112,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 
         readFromFile();
         if (highScoreArr != null) {
-            String HMS[] = highScoreArr[1].split(":", 3);
+            String[] HMS = highScoreArr[1].split(":", 3);
             prevSeconds = Integer.parseInt(HMS[2]) + Integer.parseInt(HMS[1]) * 60 +
                     Integer.parseInt(HMS[0]) * 3600;
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         if (move == 0) {
             runTimer();
@@ -122,7 +127,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             return;
         }
         move++;
-        String noOfMoves = "Runs: " + move;
+        String noOfMoves = "Moves: " + move;
         moves.setText(noOfMoves);
         if(!checking) {
             switch (view.getId()) {
@@ -929,7 +934,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.clear();
-            editor.commit();
+            editor.apply();
 
             finish();
         }
@@ -987,7 +992,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     }
 
     protected void readFromFile() {
-        String data = "";
+        StringBuilder data = new StringBuilder();
         try {
             if (!highScoreFile.exists()) {
                 return;
@@ -998,11 +1003,11 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
             while ((strLine = br.readLine()) != null) {
-                data = data + strLine;
+                data.append(strLine);
             }
             in.close();
 
-            highScoreArr = data.split(" ", 2);
+            highScoreArr = data.toString().split(" ", 2);
 
             String text = "High Score:      Moves - " + highScoreArr[0] + "     Time - " +
                     highScoreArr[1];
